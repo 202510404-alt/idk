@@ -2,8 +2,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// ... (이전 코드 생략)
-
 // 맵 데이터 (예시: 10x8 크기의 맵)
 const TILE_SIZE = 40; // 타일 하나의 크기 (가로/세로 40픽셀)
 const map = [
@@ -81,13 +79,26 @@ function update() {
     
     // 여기서는 중력/점프 로직은 생략하고 이동만 구현했습니다.
 }
-
 // 6. 그리기 함수 (업데이트된 상태를 화면에 표시)
 function draw() {
-    // 화면 지우기 (이전 프레임 흔적 제거)
+    // 1. 화면 지우기 (이전 프레임 흔적 제거)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // === 맵 그리기 시작 ===
+    for (let row = 0; row < map.length; row++) {
+        for (let col = 0; col < map[row].length; col++) {
+            if (map[row][col] === 1) {
+                // 맵 데이터가 1이면 벽(땅)을 그립니다.
+                ctx.fillStyle = 'gray'; // 벽 색상
+                // 타일 위치 계산: (열 * 타일크기, 행 * 타일크기)
+                ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
+    }
+    // === 맵 그리기 끝 ===
 
-    // 플레이어 그리기
+
+    // 플레이어 그리기 (항상 맵 위에 겹쳐져야 하므로 아래에 둡니다)
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
 }
