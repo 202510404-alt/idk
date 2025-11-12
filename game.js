@@ -2,6 +2,28 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// ... (이전 코드 생략)
+
+// 맵 데이터 (예시: 10x8 크기의 맵)
+const TILE_SIZE = 40; // 타일 하나의 크기 (가로/세로 40픽셀)
+const map = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 1, 1, 0, 1], // 맵 중간에 벽(1)을 만들었습니다.
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+];
+
+// 캔버스 크기를 맵 크기에 맞게 변경 (800x600 대신 맵 크기에 맞춤)
+canvas.width = map[0].length * TILE_SIZE; // 10 * 40 = 400
+canvas.height = map.length * TILE_SIZE;    // 8 * 40 = 320
+
+// 맵 크기에 맞게 플레이어 초기 y 위치 재설정
+player.y = canvas.height - TILE_SIZE - player.height; // 바닥 타일 위에 놓이도록
+player.speed = 3; // 맵 크기가 작아졌으니 속도도 약간 줄임
 // 2. 플레이어 객체 정의 (우리의 네모 캐릭터)
 let player = {
     x: 50,          // 시작 X 좌표
